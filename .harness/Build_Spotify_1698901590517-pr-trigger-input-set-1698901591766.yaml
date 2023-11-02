@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Spotify_1698901590517-pr-trigger-input-set
+  identifier: Build_Spotify_1698901590517prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: SMO
+  pipeline:
+    identifier: Build_Spotify_1698901590517
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
