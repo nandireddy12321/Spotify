@@ -24,10 +24,28 @@ pipeline:
                     command: echo hello world
                   timeout: ""
                   type: Run
+              - parallel:
+                  - step:
+                      type: Background
+                      name: Background_1
+                      identifier: Background_1
+                      spec: {}
+                  - step:
+                      type: GitClone
+                      name: spotify gitclone
+                      identifier: spotify_gitclone
+                      spec:
+                        connectorRef: account.Github_OAuth_1698901436771
+                        repoName: Spotify
+                        cloneDirectory: https://github.com/nandireddy12321/Spotify.git
+                        build:
+                          type: branch
+                          spec:
+                            branch: master
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Cloud
+            spec: {}
         type: CI
