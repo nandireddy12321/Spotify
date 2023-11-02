@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Spotify_1698901590517-push-trigger-input-set
+  identifier: Build_Spotify_1698901590517pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: SMO
+  pipeline:
+    identifier: Build_Spotify_1698901590517
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
