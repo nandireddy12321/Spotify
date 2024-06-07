@@ -4,31 +4,21 @@ phases:
   build:
     commands:
       # Print the branch name
-      - name: Print Branch Name
-        command: echo "Branch Name: $CODEBUILD_WEBHOOK_HEAD_REF"
+      - echo "Branch Name: $CODEBUILD_WEBHOOK_HEAD_REF"
       # Checkout the source code
-      - name: Checkout Source Code
-        command: git clone https://github.com/nandireddy12321/Spotify.git
-      - name: Change Directory to Source Code
-        command: cd Spotify
+      - git clone https://github.com/nandireddy12321/Spotify.git
+      - cd Spotify
       # Build Docker image
-      - name: Build Docker Image
-        command: docker build -t spotify .
+      - docker build -t spotify .
       # Print Docker image name with tag of build number
-      - name: Print Docker Image Name
-        command: echo "Docker Image Name: spotify:$CODEBUILD_BUILD_NUMBER"
+      - echo "Docker Image Name: spotify:$CODEBUILD_BUILD_NUMBER"
 
   artifact:
     commands:
       # Log in to AWS CodeArtifact using AWS CLI
-      - name: Login to CodeArtifact
-        command: aws codeartifact login --tool docker --repository lokiiii --domain spotify
+      - aws codeartifact login --tool docker --repository lokiiii --domain spotify
       # Print whether login succeeded or not
-      - name: Print Login Status
-        command: if [ $? -eq 0 ]; then echo "Login to CodeArtifact succeeded"; else echo "Login to CodeArtifact failed"; fi
+      - if [ $? -eq 0 ]; then echo "Login to CodeArtifact succeeded"; else echo "Login to CodeArtifact failed"; fi
       # Push Docker image to AWS CodeArtifact
-      - name: Push Docker Image to CodeArtifact
-        command: |
-          docker tag spotify \
-          891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
-          docker push 891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
+      - docker tag spotify 891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
+      - docker push 891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
