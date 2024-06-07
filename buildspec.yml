@@ -4,7 +4,7 @@ phases:
   build:
     commands:
       # Print the branch name
-      - echo "Branch Name: $CODEBUILD_WEBHOOK_HEAD_REF"
+      - echo "Branch Name: ${CODEBUILD_SOURCE_VERSION#refs/heads/}"
       # Checkout the source code
       - git clone https://github.com/nandireddy12321/Spotify.git
       - cd Spotify
@@ -16,10 +16,11 @@ phases:
   artifact:
     commands:
       # Log in to AWS CodeArtifact using AWS CLI
-      - aws codeartifact login --tool docker --repository lokiiii --domain spotify
+      - "aws codeartifact login --tool docker --repository lokiiii --domain spotify"
       # Print whether login succeeded or not
       - if [ $? -eq 0 ]; then echo "Login to CodeArtifact succeeded"; else echo "Login to CodeArtifact failed"; fi
       # Push Docker image to AWS CodeArtifact
-      - docker tag spotify \
+      - >
+        docker tag spotify \
           891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
       - docker push 891377224117.d.codeartifact.ap-south-1.amazonaws.com/lokiiii/spotify:$CODEBUILD_BUILD_NUMBER
