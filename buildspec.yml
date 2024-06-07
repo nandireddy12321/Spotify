@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - npm install -g @angular/cli
+      - npm install
+  build:
+    commands:
+      - ng build --prod
+  post_build:
+    commands:
+      # Log in to AWS CodeArtifact using AWS CLI
+      - aws codeartifact login --tool npm --repository lokiiii --domain spotify
+      # Publish artifacts to AWS CodeArtifact
+      - npm publish --registry=https://891377224117.d.codeartifact.ap-south-1.amazonaws.com/npm/lokiiii/
+      # Optionally, you can run additional post-build commands here
+      - echo "Build completed successfully"
+
+artifacts:
+  files:
+    # Define the files or directories to include in the build artifacts
+    - '**/*'
