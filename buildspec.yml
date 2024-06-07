@@ -13,7 +13,7 @@ phases:
       # Print Docker image name with tag of build number
       #- echo "Docker Image Name: spotify:$CODEBUILD_BUILD_NUMBER"
 
-  artifact:
+  postbuild:
     commands:
       # Log in to AWS CodeArtifact using AWS CLI
       - "aws codeartifact login --tool docker --repository lokiiii --domain spotify"
