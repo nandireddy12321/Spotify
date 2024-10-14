@@ -3,3 +3,6 @@ service:
   identifier: dddd
   orgIdentifier: default
   projectIdentifier: ab0000658
+  serviceDefinition:
+    spec: {}
+    type: Kubernetes
