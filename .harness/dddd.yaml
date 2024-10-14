@@ -1,6 +1,6 @@
 service:
-  name: dddd
-  identifier: dddd
+  name: lokesh
+  identifier: lokesh
   orgIdentifier: default
   projectIdentifier: ab0000658
   serviceDefinition:
